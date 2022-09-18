@@ -1,2 +1,1 @@
-# backend-boilerplate
 # pathshala-server

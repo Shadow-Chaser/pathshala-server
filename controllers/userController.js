@@ -31,15 +31,15 @@ const signUp = async (req, res) => {
         const result = await user.save();
 
         // Email verification
-        const verificationToken = await getVerificationToken(result._id);
-        const verifyLink = `${process.env.BASE_URL}/user/verify/${verificationToken.userId}/${verificationToken.token}`;
-        await sendEmail(user.email, "Verify Email", verifyLink, result.name, "verifyEmail.ejs");
+        // const verificationToken = await getVerificationToken(result._id);
+        // const verifyLink = `${process.env.BASE_URL}/user/verify/${verificationToken.userId}/${verificationToken.token}`;
+        // await sendEmail(user.email, "Verify Email", verifyLink, result.name, "verifyEmail.ejs");
 
         res.status(201).send({
             data: {
                 name: result.name,
                 email: result.email,
-                msg: "An Email will be sent to your account to verify!",
+                // msg: "An Email will be sent to your account to verify!",
             },
         });
     } catch (err) {
@@ -56,7 +56,7 @@ const signIn = async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email });
         if (!user) return res.status(400).send("Invalid email or password!");
-        if (!user.emailVerified) return res.status(400).send("Please verify your email to login!");
+        // if (!user.emailVerified) return res.status(400).send("Please verify your email to login!");
 
         const validUser = await bcrypt.compare(req.body.password, user.password);
         if (!validUser) return res.status(400).send("Invalid email or password!");
